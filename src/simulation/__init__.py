@@ -4,6 +4,7 @@ from .building import Building
 from .elevator import Elevator
 from .floor import Floor
 from .passenger import Passenger
+from .config import ElevatorConstraints
 from .simulation import MetricsSnapshot, MorningRushWindow, Simulation
 
 __all__ = [
@@ -11,6 +12,7 @@ __all__ = [
     "Elevator",
     "Floor",
     "Passenger",
+    "ElevatorConstraints",
     "MetricsSnapshot",
     "MorningRushWindow",
     "Simulation",
