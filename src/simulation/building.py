@@ -53,7 +53,15 @@ class Building:
 
     def snapshot(self) -> dict:
         return {
-            "floors": [len(floor) for floor in self.floors],
+            "floors": [
+                {
+                    "number": floor.number,
+                    "waiting_up": len(floor.up_queue),
+                    "waiting_down": len(floor.down_queue),
+                    "total_waiting": len(floor),
+                }
+                for floor in self.floors
+            ],
             "elevators": [
                 {
                     "id": elevator.elevator_id,
