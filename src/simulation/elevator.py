@@ -17,6 +17,7 @@ class Elevator:
     elevator_id: int
     capacity: int
     speed_floors_per_tick: float = 1.0
+    acceleration_floors_per_tick2: float = 0.0
     door_dwell_ticks: int = 1
     position: float = 0.0
     targets: List[int] = field(default_factory=list)

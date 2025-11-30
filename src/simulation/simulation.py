@@ -102,6 +102,7 @@ class Simulation:
 
     def step(self) -> None:
         self._generate_passenger_arrivals()
+        self.building.dispatch(self.current_time)
         for elevator in self.building.elevators:
             elevator.step(self.building, self.current_time, self.metrics)
 
