@@ -109,7 +109,48 @@ class Simulation:
         if self.current_time % self.metrics_hook_interval == 0:
             self._emit_metrics()
 
+        self._emit(
+            "tick",
+            {
+                "time": self.current_time,
+                "building": self.building.snapshot(),
+                "metrics": self.metrics.snapshot(self.current_time),
+            },
+        )
+
         self.current_time += 1
+
+    def spawn_passenger_batch(
+        self,
+        origin: int,
+        count: int,
+        destination: Optional[int] = None,
+    ) -> int:
+        floor = self.building.get_floor(origin)
+        if floor is None or count <= 0:
+            return 0
+
+        spawned = 0
+        for _ in range(count):
+            dest = destination if destination is not None else self._choose_destination(origin)
+            passenger = Passenger(
+                passenger_id=self._next_passenger_id,
+                origin=origin,
+                destination=dest,
+                arrival_time=self.current_time,
+            )
+            self._next_passenger_id += 1
+            floor.add_passenger(passenger)
+            spawned += 1
+
+        # Trigger pickup requests for both directions when a batch arrives.
+        if floor.up_queue:
+            self.building.request_pickup(origin, 1)
+        if floor.down_queue:
+            self.building.request_pickup(origin, -1)
+
+        self._emit("arrival", {"time": self.current_time, "count": spawned, "manual": True})
+        return spawned
 
     def on_event(self, event: str, callback: Callable[[object], None]) -> None:
         self.event_hooks.setdefault(event, []).append(callback)
