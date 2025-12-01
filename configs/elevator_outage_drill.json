@@ -1,0 +1,38 @@
+{
+  "name": "Elevator outage drill",
+  "description": "Simulates scheduled outages for training while traffic continues.",
+  "duration": 720,
+  "arrival_rate_per_floor": 0.025,
+  "building": {
+    "num_floors": 100,
+    "elevator_count": 10,
+    "constraints": {
+      "capacity": 10,
+      "door_dwell_ticks": 2
+    }
+  },
+  "scheduler": {
+    "name": "destination_dispatch",
+    "options": {
+      "batch_size": 6
+    }
+  },
+  "events": [
+    {
+      "type": "outage",
+      "elevator_id": 2,
+      "start_time": 180,
+      "end_time": 360,
+      "reason": "maintenance drill"
+    },
+    {
+      "type": "outage",
+      "elevator_id": 7,
+      "start_time": 300,
+      "end_time": 540,
+      "reason": "staged fault"
+    }
+  ],
+  "metrics_hook_interval": 10,
+  "random_seed": 777
+}

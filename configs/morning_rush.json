@@ -1,0 +1,29 @@
+{
+  "name": "Morning lobby surge",
+  "description": "Dense inbound rush from lobby to offices with focused destinations.",
+  "duration": 600,
+  "arrival_rate_per_floor": 0.04,
+  "building": {
+    "num_floors": 100,
+    "elevator_count": 10,
+    "constraints": {
+      "capacity": 12,
+      "door_dwell_ticks": 1
+    }
+  },
+  "scheduler": {
+    "name": "scan",
+    "options": {}
+  },
+  "morning_bursts": [
+    {
+      "start_time": 0,
+      "end_time": 300,
+      "multiplier": 5.0,
+      "origin_floor": 0,
+      "destination_focus": 50
+    }
+  ],
+  "metrics_hook_interval": 10,
+  "random_seed": 42
+}
