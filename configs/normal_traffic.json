@@ -1,0 +1,16 @@
+{
+  "name": "Steady weekday flow",
+  "description": "Balanced arrivals across floors with default constraints.",
+  "duration": 900,
+  "arrival_rate_per_floor": 0.02,
+  "building": {
+    "num_floors": 100,
+    "elevator_count": 10
+  },
+  "scheduler": {
+    "name": "fcfs",
+    "options": {}
+  },
+  "metrics_hook_interval": 10,
+  "random_seed": 1337
+}
